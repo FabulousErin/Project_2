@@ -14,6 +14,7 @@ function init() {
             id: "mapbox/light-v10",
             accessToken: "pk.eyJ1IjoiZXJpbi1uYXpldHRhIiwiYSI6ImNrcDRvaTExaTBib2cyeHQ4dWVyaDVlNWoifQ.DKcPTFaA051G8dTXau3ErQ",
         }).addTo(myMap);
+        
 
 //L.geoJson(statesData).addTo(map);
 
