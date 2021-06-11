@@ -2,8 +2,8 @@ function init() {
     console.log("init")
         // Creating our initial map object
         var myMap = L.map("mapid", {
-            center: [45.52, -122.67],
-            zoom: 3
+            center: [37.0902, -95.7129],
+            zoom: 4
         });
 
         L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -20,9 +20,10 @@ function init() {
 d3.json("/static/data/state_outlines.json").then(function(data) {
     // Creating a GeoJSON layer with the retrieved data.
       L.geoJson(data, {
-        // filter: function(feature) {
-        //   if (data_dict['MSA'][feature.properties.cbsafp]) return true
-        // },
+        filter: function(feature) {
+          if (feature.properties.NAME=="Alaska" || feature.properties.NAME== "Hawaii" || feature.properties.NAME== "Puerto Rico") return false
+          else return true;
+        },
         // style : function(feature) {
         //   let cbsa = feature.properties.cbsafp;
         //   poly_style = {
@@ -33,11 +34,16 @@ d3.json("/static/data/state_outlines.json").then(function(data) {
         //   }
         //   return poly_style
         // },
-        // onEachFeature: function(feature, layer) {
-        //   let cbsa = feature.properties.cbsafp;
-        //   layer.bindPopup(build_html(cbsa));
-        // }
+        onEachFeature: function(feature, layer) {
+          let state_click = feature.properties.NAME ;
+          layer.on({click:OnClick});
+        }
       }).addTo(myMap);
     });
 };
 window.addEventListener('DOMContentLoaded', init);
+
+function OnClick(state_output){
+    console.log (state_output.target.feature.properties.NAME)
+}
+
