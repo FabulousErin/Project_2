@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql.roles import StatementOptionRole
 # from flask_migrate import Migrate
 
 app = Flask(__name__)
@@ -13,6 +14,8 @@ class Production(db.Model):
     __tablename__ = 'production_data'
 class CropArea(db.Model):
     __tablename__ = 'area_cleaned_data'
+class Yield(db.Model):
+    __tablename__= 'yield_cleaned_data'
 # db = SQLAlchemy(app)
 # # from models import db
 # # db.init_app(app)
@@ -31,13 +34,26 @@ class CropArea(db.Model):
 #     def __repr__(self):
 #         return '<Production %r>' % self.state
 
-@app.route('/test')
+@app.route('/prdpie')
 def test():
-    results=db.session.query(Production.State, Production.Commodity).all()
-    print(results[26][0])
-    return jsonify(results)
+    results=db.session.query(
+    Production.Year,
+    Production.State,
+    Production.Commodity,
+    Production.Data_Item,
+    Production.Value,
+    Production.id
+    ).all()
 
-
+    resultsJson= [{
+        'Year':result[0],
+        'State':result[1],
+        'Commodity': result[2],
+        'Data_Item': result[3],
+        'Value': result[4],
+        'id': result[5],
+    } for result in results]
+    return jsonify(resultsJson)
 
 @app.route('/')
 @app.route('/home')
