@@ -44,7 +44,7 @@ def pie(state):
     Production.Data_Item,
     Production.Value,
     Production.id
-    ).filter(Production.State==state).order_by(desc(cast(Production.Value, BigInteger))).limit(5).all()
+    ).filter(Production.State==state).order_by(desc(Production.Value)).limit(5).all()
 
     resultsJson= [{
         'Year':result[0],

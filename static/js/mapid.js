@@ -64,7 +64,7 @@ function pieChart(state) {
 
       labels: mylabels,
       datasets: [{
-        label: `${state}'s Top 5 Crop Production by Value`,
+        label: `${state}`,
         data:mydata,
         backgroundColor: [
           'rgb(255, 99, 132)',
@@ -80,6 +80,14 @@ function pieChart(state) {
     const config = {
       type: 'pie',
       data: data,
+      options:{
+        plugins:{
+          title:{
+            display:true,
+            text:`${state}'s Top 5 Crop Production by Value`
+          }
+        }
+      }
     };
 
     var myChart = new Chart(
@@ -94,24 +102,26 @@ function pieChart(state) {
     console.log(mylabels)
     console.log(mydata)
     var myChart=Chart.getChart(`pieChart`)
-    removeData(myChart)
-    addData(myChart, mylabels, mydata)
+    // removeData(myChart)
+    addData(myChart, mylabels, mydata, state)
   })
 }
 }
 
-function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
+function addData(chart, label, data, state) {
+    console.log(chart.data.datasets)
+    chart.data.labels=label;
+    chart.options.plugins.title.text = `${state}'s Top 5 Crop Production by Value`;
+    chart.data.datasets[0].data = data;
+    console.log(chart.data.datasets.data)
     chart.update();
 }
 
 function removeData(chart) {
-    chart.data.labels.pop();
+  console.log(chart.data.labels)  
+  chart.data.labels=[];
     chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
+        dataset.data=[];
     });
     chart.update();
 }
