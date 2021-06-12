@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc, cast, BigInteger
 from sqlalchemy.sql.roles import StatementOptionRole
 # from flask_migrate import Migrate
 
@@ -34,8 +35,8 @@ class Yield(db.Model):
 #     def __repr__(self):
 #         return '<Production %r>' % self.state
 
-@app.route('/prdpie')
-def pie():
+@app.route('/prdpie/<state>')
+def pie(state):
     results=db.session.query(
     Production.Year,
     Production.State,
@@ -43,7 +44,7 @@ def pie():
     Production.Data_Item,
     Production.Value,
     Production.id
-    ).all()
+    ).filter(Production.State==state).order_by(desc(cast(Production.Value, BigInteger))).limit(5).all()
 
     resultsJson= [{
         'Year':result[0],
