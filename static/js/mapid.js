@@ -37,13 +37,16 @@ d3.json("/static/data/state_outlines.json").then(function(data) {
         onEachFeature: function(feature, layer) {
           let state_click = feature.properties.NAME ;
           layer.on({click:OnClick});
+          layer.bindPopup("Check out the charts below to see data for crops in " + feature.properties.NAME);
+                
         }
+
       }).addTo(myMap);
     });
 };
 window.addEventListener('DOMContentLoaded', init);
 
 function OnClick(state_output){
-    console.log (state_output.target.feature.properties.NAME)
+    console.log (state_output.target.feature.properties.NAME.toUpperCase())
 }
 
