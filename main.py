@@ -35,7 +35,7 @@ class Yield(db.Model):
 #         return '<Production %r>' % self.state
 
 @app.route('/prdpie')
-def test():
+def pie():
     results=db.session.query(
     Production.Year,
     Production.State,
@@ -43,6 +43,44 @@ def test():
     Production.Data_Item,
     Production.Value,
     Production.id
+    ).all()
+
+    resultsJson= [{
+        'Year':result[0],
+        'State':result[1],
+        'Commodity': result[2],
+        'Data_Item': result[3],
+        'Value': result[4],
+        'id': result[5],
+    } for result in results]
+    return jsonify(resultsJson)
+
+@app.route('/areabar')
+def bar():
+    results=db.session.query(
+    CropArea.Year,
+    CropArea.State,
+    CropArea.Value,
+    CropArea.id
+    ).all()
+
+    resultsJson= [{
+        'Year':result[0],
+        'State':result[1],
+        'Value': result[2],
+        'id': result[3],
+    } for result in results]
+    return jsonify(resultsJson)
+
+@app.route('/yieldline')
+def line():
+    results=db.session.query(
+    Yield.Year,
+    Yield.State,
+    Yield.Commodity,
+    Yield.Data_Item,
+    Yield.Value,
+    Yield.id
     ).all()
 
     resultsJson= [{
