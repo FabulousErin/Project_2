@@ -1,33 +1,41 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URl'] = "postgresql:myAkina93!@database-1.c6qqzgohsabf.us-east-2.rds.amazonaws.com:5432/project2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:myAkina93!@database-1.c6qqzgohsabf.us-east-2.rds.amazonaws.com:5432/project2"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-# from models import db
-# db.init_app(app)
-
+db.reflect()
 class Production(db.Model):
     __tablename__ = 'production_data'
+class CropArea(db.Model):
+    __tablename__ = 'area_cleaned_data'
+# db = SQLAlchemy(app)
+# # from models import db
+# # db.init_app(app)
 
-    id = db.Column(db.Integer, primary_key=True)
-    state= db.Column(db.String())
-    year = db.Column(db.String())
-    commodity= db.Column(db.String())
-    data_Item= db.Column(db.String())
-    value= db.Column(db.String())
+# class Production(db.Model):
+#     __tablename__ = 'production_data'
+
+#     Id = db.Column(db.Integer, primary_key=True)
+#     State= db.Column(db.String())
+#     Year = db.Column(db.String())
+#     Commodity= db.Column(db.String())
+#     Data_Item= db.Column(db.String())
+#     value= db.Column(db.String())
  
         
-    def __repr__(self):
-        return '<Production %r>' % self.state
+#     def __repr__(self):
+#         return '<Production %r>' % self.state
 
 @app.route('/test')
 def test():
-    results=db.session.query(Production.state, Production.commodity).all()
-    return results[0][0]
+    results=db.session.query(Production.State, Production.Commodity).all()
+    print(results[26][0])
+    return jsonify(results)
 
 
 
