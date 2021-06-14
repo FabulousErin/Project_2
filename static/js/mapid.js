@@ -49,7 +49,8 @@ window.addEventListener('DOMContentLoaded', init);
 function OnClick(state_output) {
   console.log(state_output.target.feature.properties.NAME.toUpperCase());
   pieChart(state_output.target.feature.properties.NAME.toUpperCase());
-  barChart(state_output.target.feature.properties.NAME.toUpperCase())
+  barChart(state_output.target.feature.properties.NAME.toUpperCase());
+  lineGraph(state_output.target.feature.properties.NAME.toUpperCase())
 }
 
 function pieChart(state) {
@@ -135,6 +136,7 @@ function removeData(chart) {
 }
 pieChart('US TOTAL');
 barChart('US TOTAL');
+lineGraph('US TOTAL'); 
 
 function barChart(state) {
   if (state === 'US TOTAL') {
@@ -196,6 +198,62 @@ function barChart(state) {
       var myChart = Chart.getChart(`barChart`)
       // removeData(myChart)
       addDataBar(myChart, mylabels, mydata, state)
+    })
+  }
+}
+function lineGraph(state) {
+  if (state === 'US TOTAL') {
+
+
+    d3.json(`/yieldline/${state}`).then(function (statedata) {
+      var mylabels = statedata.map(sdata => sdata.Year)
+      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      console.log(mylabels)
+      console.log(mydata)
+      const data = {
+
+        labels: mylabels,
+        datasets: [{
+          label: `${state}`,
+          data: mydata,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(100, 205, 86)',
+            'rgb(255, 205, 255)',
+          ],
+          hoverOffset: 4
+        }]
+      };
+
+      const config = {
+        type: 'line',
+        data: data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${state}'s Top 5 Crop Production by Value`
+            }
+          }
+        }
+      };
+
+      var myChart = new Chart(
+        document.getElementById('lineGraph'),
+        config
+      );
+    });
+  } else {
+    d3.json(`/yieldline/${state}`).then(function (statedata) {
+      var mylabels = statedata.map(sdata => sdata.Year)
+      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      console.log(mylabels)
+      console.log(mydata)
+      var myChart = Chart.getChart(`lineGraph`)
+      // removeData(myChart)
+      addData(myChart, mylabels, mydata, state)
     })
   }
 }

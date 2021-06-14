@@ -73,8 +73,8 @@ def bar(state):
     } for result in results]
     return jsonify(resultsJson)
 
-@app.route('/yieldline')
-def line():
+@app.route('/yieldline/<state>')
+def line(state):
     results=db.session.query(
     Yield.Year,
     Yield.State,
@@ -82,7 +82,8 @@ def line():
     Yield.Data_Item,
     Yield.Value,
     Yield.id
-    ).all()
+    ).filter(Yield.State==state).order_by((Yield.Year),(desc(Yield.Value))).all()
+
 
     resultsJson= [{
         'Year':result[0],
