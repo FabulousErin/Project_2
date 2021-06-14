@@ -56,14 +56,14 @@ def pie(state):
     } for result in results]
     return jsonify(resultsJson)
 
-@app.route('/areabar')
-def bar():
+@app.route('/areabar/<state>')
+def bar(state):
     results=db.session.query(
     CropArea.Year,
     CropArea.State,
     CropArea.Value,
     CropArea.id
-    ).all()
+    ).filter(CropArea.State==state).order_by((CropArea.Year)).all()
 
     resultsJson= [{
         'Year':result[0],

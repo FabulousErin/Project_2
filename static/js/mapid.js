@@ -48,81 +48,154 @@ window.addEventListener('DOMContentLoaded', init);
 
 function OnClick(state_output) {
   console.log(state_output.target.feature.properties.NAME.toUpperCase());
-  pieChart(state_output.target.feature.properties.NAME.toUpperCase())
+  pieChart(state_output.target.feature.properties.NAME.toUpperCase());
+  barChart(state_output.target.feature.properties.NAME.toUpperCase())
 }
 
 function pieChart(state) {
-  if (state === 'US TOTAL'){
+  if (state === 'US TOTAL') {
 
- 
-  d3.json(`/prdpie/${state}`).then(function (statedata) {
-    var mylabels=statedata.map(sdata=>sdata.Commodity)
-    var mydata = statedata.map(sdata=>parseInt(sdata.Value.replaceAll(',','')))
-    console.log(mylabels)
-    console.log(mydata)
-    const data = {
 
-      labels: mylabels,
-      datasets: [{
-        label: `${state}`,
-        data:mydata,
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(100, 205, 86)',
-          'rgb(255, 205, 255)',
-        ],
-        hoverOffset: 4
-      }]
-    };
+    d3.json(`/prdpie/${state}`).then(function (statedata) {
+      var mylabels = statedata.map(sdata => sdata.Commodity)
+      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      console.log(mylabels)
+      console.log(mydata)
+      const data = {
 
-    const config = {
-      type: 'pie',
-      data: data,
-      options:{
-        plugins:{
-          title:{
-            display:true,
-            text:`${state}'s Top 5 Crop Production by Value`
+        labels: mylabels,
+        datasets: [{
+          label: `${state}`,
+          data: mydata,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(100, 205, 86)',
+            'rgb(255, 205, 255)',
+          ],
+          hoverOffset: 4
+        }]
+      };
+
+      const config = {
+        type: 'pie',
+        data: data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${state}'s Top 5 Crop Production by Value`
+            }
           }
         }
-      }
-    };
+      };
 
-    var myChart = new Chart(
-      document.getElementById('pieChart'),
-      config
-    );
-  });
-}else {
-  d3.json(`/prdpie/${state}`).then(function (statedata) {
-    var mylabels=statedata.map(sdata=>sdata.Commodity)
-    var mydata = statedata.map(sdata=>parseInt(sdata.Value.replaceAll(',','')))
-    console.log(mylabels)
-    console.log(mydata)
-    var myChart=Chart.getChart(`pieChart`)
-    // removeData(myChart)
-    addData(myChart, mylabels, mydata, state)
-  })
-}
+      var myChart = new Chart(
+        document.getElementById('pieChart'),
+        config
+      );
+    });
+  } else {
+    d3.json(`/prdpie/${state}`).then(function (statedata) {
+      var mylabels = statedata.map(sdata => sdata.Commodity)
+      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      console.log(mylabels)
+      console.log(mydata)
+      var myChart = Chart.getChart(`pieChart`)
+      // removeData(myChart)
+      addData(myChart, mylabels, mydata, state)
+    })
+  }
 }
 
 function addData(chart, label, data, state) {
-    console.log(chart.data.datasets)
-    chart.data.labels=label;
-    chart.options.plugins.title.text = `${state}'s Top 5 Crop Production by Value`;
-    chart.data.datasets[0].data = data;
-    console.log(chart.data.datasets.data)
-    chart.update();
+  console.log(chart.data.datasets)
+  chart.data.labels = label;
+  chart.options.plugins.title.text = `${state}'s Top 5 Crop Production by Value`;
+  chart.data.datasets[0].data = data;
+  console.log(chart.data.datasets.data)
+  chart.update();
 }
-
+function addDataBar(chart, label, data, state) {
+  console.log(chart.data.datasets)
+  chart.data.labels = label;
+  chart.options.plugins.title.text = `${state}'s Yearly Crop Area`;
+  chart.data.datasets[0].data = data;
+  console.log(chart.data.datasets.data)
+  chart.update();
+}
 function removeData(chart) {
-  console.log(chart.data.labels)  
-  chart.data.labels=[];
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data=[];
-    });
-    chart.update();
+  console.log(chart.data.labels)
+  chart.data.labels = [];
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
+  chart.update();
 }
-pieChart('US TOTAL')
+pieChart('US TOTAL');
+barChart('US TOTAL');
+
+function barChart(state) {
+  if (state === 'US TOTAL') {
+
+
+    d3.json(`/areabar/${state}`).then(function (statedata) {
+
+      var mylabels = statedata.map(sdata => sdata.Year);
+      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')));
+      console.log(mylabels);
+      console.log(mydata);
+      const data = {
+        labels: mylabels,
+        datasets: [{
+          label: `${state}`,
+          data: mydata,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 99, 132)',
+          ],
+          hoverOffset: 4
+        }]
+      };
+
+      const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${state}'s Yearly Crop Area`
+            }
+          }
+        }
+      };
+
+      var myChart = new Chart(
+        document.getElementById('barChart'),
+        config
+      );
+    });
+  } else {
+    d3.json(`/areabar/${state}`).then(function (statedata) {
+      var mylabels = statedata.map(sdata => sdata.Year)
+      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      console.log(mylabels)
+      console.log(mydata)
+      var myChart = Chart.getChart(`barChart`)
+      // removeData(myChart)
+      addDataBar(myChart, mylabels, mydata, state)
+    })
+  }
+}
