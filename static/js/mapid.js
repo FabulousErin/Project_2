@@ -1,5 +1,5 @@
 function init() {
-  console.log("init")
+  // console.log("init")
   // Creating our initial map object
   var myMap = L.map("mapid", {
     center: [37.0902, -95.7129],
@@ -46,12 +46,22 @@ function init() {
 };
 window.addEventListener('DOMContentLoaded', init);
 
+var saved_state_output =""
+
 function OnClick(state_output) {
-  console.log(state_output.target.feature.properties.NAME.toUpperCase());
+  saved_state_output = state_output
+  // console.log(state_output)
+  // console.log(state_output.target.feature.properties.NAME.toUpperCase());
   pieChart(state_output.target.feature.properties.NAME.toUpperCase());
   barChart(state_output.target.feature.properties.NAME.toUpperCase());
   lineGraph(state_output.target.feature.properties.NAME.toUpperCase())
 }
+
+function optChange(commodityselected) {
+  // console.log(saved_state_output.target.feature.properties.NAME.toUpperCase());
+  lineGraph(saved_state_output.target.feature.properties.NAME.toUpperCase(),commodityselected)
+}
+
 
 function pieChart(state) {
   if (state === 'US TOTAL') {
@@ -60,8 +70,8 @@ function pieChart(state) {
     d3.json(`/prdpie/${state}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Commodity)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
-      console.log(mylabels)
-      console.log(mydata)
+      // console.log(mylabels)
+      // console.log(mydata)
       const data = {
 
         labels: mylabels,
@@ -101,8 +111,8 @@ function pieChart(state) {
     d3.json(`/prdpie/${state}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Commodity)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
-      console.log(mylabels)
-      console.log(mydata)
+      // console.log(mylabels)
+      // console.log(mydata)
       var myChart = Chart.getChart(`pieChart`)
       // removeData(myChart)
       addData(myChart, mylabels, mydata, state)
@@ -111,23 +121,23 @@ function pieChart(state) {
 }
 
 function addData(chart, label, data, state) {
-  console.log(chart.data.datasets)
+  // console.log(chart.data.datasets)
   chart.data.labels = label;
   chart.options.plugins.title.text = `${state}'s Top 5 Crop Production by Value`;
   chart.data.datasets[0].data = data;
-  console.log(chart.data.datasets.data)
+  // console.log(chart.data.datasets.data)
   chart.update();
 }
 function addDataBar(chart, label, data, state) {
-  console.log(chart.data.datasets)
+  // console.log(chart.data.datasets)
   chart.data.labels = label;
   chart.options.plugins.title.text = `${state}'s Yearly Crop Area`;
   chart.data.datasets[0].data = data;
-  console.log(chart.data.datasets.data)
+  // console.log(chart.data.datasets.data)
   chart.update();
 }
 function removeData(chart) {
-  console.log(chart.data.labels)
+  // console.log(chart.data.labels)
   chart.data.labels = [];
   chart.data.datasets.forEach((dataset) => {
     dataset.data = [];
@@ -136,7 +146,7 @@ function removeData(chart) {
 }
 pieChart('US TOTAL');
 barChart('US TOTAL');
-lineGraph('US TOTAL'); 
+lineGraph('US TOTAL');
 
 function barChart(state) {
   if (state === 'US TOTAL') {
@@ -146,8 +156,8 @@ function barChart(state) {
 
       var mylabels = statedata.map(sdata => sdata.Year);
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')));
-      console.log(mylabels);
-      console.log(mydata);
+      // console.log(mylabels);
+      // console.log(mydata);
       const data = {
         labels: mylabels,
         datasets: [{
@@ -193,19 +203,19 @@ function barChart(state) {
     d3.json(`/areabar/${state}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Year)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
-      console.log(mylabels)
-      console.log(mydata)
+      // console.log(mylabels)
+      // console.log(mydata)
       var myChart = Chart.getChart(`barChart`)
       // removeData(myChart)
       addDataBar(myChart, mylabels, mydata, state)
     })
   }
 }
-function lineGraph(state) {
+function lineGraph(state,commodityselected="all") {
   if (state === 'US TOTAL') {
 
 
-    d3.json(`/yieldline/${state}`).then(function (statedata) {
+    d3.json(`/yieldline/${state}/${commodityselected}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Year)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
       console.log(mylabels)
@@ -246,11 +256,11 @@ function lineGraph(state) {
       );
     });
   } else {
-    d3.json(`/yieldline/${state}`).then(function (statedata) {
+    d3.json(`/yieldline/${state}${commodityselected}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Year)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
-      console.log(mylabels)
-      console.log(mydata)
+      // console.log(mylabels)
+      // console.log(mydata)
       var myChart = Chart.getChart(`lineGraph`)
       // removeData(myChart)
       addData(myChart, mylabels, mydata, state)

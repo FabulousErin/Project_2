@@ -73,27 +73,50 @@ def bar(state):
     } for result in results]
     return jsonify(resultsJson)
 
-@app.route('/yieldline/<state>')
-def line(state):
-    results=db.session.query(
-    Yield.Year,
-    Yield.State,
-    Yield.Commodity,
-    Yield.Data_Item,
-    Yield.Value,
-    Yield.id
-    ).filter(Yield.State==state).order_by((Yield.Year),(desc(Yield.Value))).all()
+@app.route('/yieldline/<state>') 
+@app.route('/yieldline/<state>/<commodityselected>')
+def line(state, commodityselected="all"):
+    if commodityselected == "all":
+        results=db.session.query(
+        Yield.Year,
+        Yield.State,
+        Yield.Commodity,
+        Yield.Data_Item,
+        Yield.Value,
+        Yield.id
+        ).filter(Yield.State==state).order_by((Yield.Year),(desc(Yield.Value))).all()
 
 
-    resultsJson= [{
-        'Year':result[0],
-        'State':result[1],
-        'Commodity': result[2],
-        'Data_Item': result[3],
-        'Value': result[4],
-        'id': result[5],
-    } for result in results]
-    return jsonify(resultsJson)
+        resultsJson= [{
+            'Year':result[0],
+            'State':result[1],
+            'Commodity': result[2],
+            'Data_Item': result[3],
+            'Value': result[4],
+            'id': result[5],
+        } for result in results]
+        return jsonify(resultsJson)
+    else: 
+        # fliter by commodity
+        results=db.session.query(
+        Yield.Year,
+        Yield.State,
+        Yield.Commodity,
+        Yield.Data_Item,
+        Yield.Value,
+        Yield.id
+        ).filter(Yield.State==state).filter(Yield.Commodity==commodityselected).order_by((Yield.Year),(desc(Yield.Value))).all()
+
+
+        resultsJson= [{
+            'Year':result[0],
+            'State':result[1],
+            'Commodity': result[2],
+            'Data_Item': result[3],
+            'Value': result[4],
+            'id': result[5],
+        } for result in results]
+        return jsonify(resultsJson)
 
 @app.route('/')
 @app.route('/home')
