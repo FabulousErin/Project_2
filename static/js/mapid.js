@@ -232,8 +232,13 @@ function lineGraph(state, commodities) {
         var dataset = {
           label: commodity,
           data: values,
-          backgroundColor: [
+          fill: false,
+          borderColor: [
             'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(100, 205, 86)',
+            'rgb(255, 205, 255)',
           ],
           hoverOffset: 4
         }
@@ -277,8 +282,13 @@ function lineGraph(state, commodities) {
         var dataset = {
           label: commodity,
           data: values,
-          backgroundColor: [
+          fill: false,
+          borderColor: [
             'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(100, 205, 86)',
+            'rgb(255, 205, 255)',
           ],
           hoverOffset: 4
         }
