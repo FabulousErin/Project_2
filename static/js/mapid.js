@@ -74,7 +74,7 @@ function pieChart(state) {
       // console.log(mydata)
       const data = {
 
-        labels: ,
+        labels: comLabel ,
         datasets: [{
           label: `${state}`,
           data: mydata,
