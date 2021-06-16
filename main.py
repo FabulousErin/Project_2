@@ -74,9 +74,9 @@ def bar(state):
     return jsonify(resultsJson)
 
 @app.route('/yieldline/<state>') 
-@app.route('/yieldline/<state>/<commodityselected>')
-def line(state, commodityselected="all"):
-    if commodityselected == "all":
+# @app.route('/yieldline/<state>/<commodityselected>')
+def line(state):
+    # if commodityselected == "all":
         results=db.session.query(
         Yield.Year,
         Yield.State,
@@ -96,16 +96,16 @@ def line(state, commodityselected="all"):
             'id': result[5],
         } for result in results]
         return jsonify(resultsJson)
-    else: 
-        # fliter by commodity
-        results=db.session.query(
-        Yield.Year,
-        Yield.State,
-        Yield.Commodity,
-        Yield.Data_Item,
-        Yield.Value,
-        Yield.id
-        ).filter(Yield.State==state).filter(Yield.Commodity==commodityselected).order_by((Yield.Year),(desc(Yield.Value))).all()
+    # else: 
+    #     # filter by commodity
+    #     results=db.session.query(
+    #     Yield.Year,
+    #     Yield.State,
+    #     Yield.Commodity,
+    #     Yield.Data_Item,
+    #     Yield.Value,
+    #     Yield.id
+    #     ).filter(Yield.State==state).filter(Yield.Commodity==commodityselected).order_by((Yield.Year),(desc(Yield.Value))).all()
 
 
         resultsJson= [{

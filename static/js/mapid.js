@@ -211,11 +211,11 @@ function barChart(state) {
     })
   }
 }
-function lineGraph(state,commodityselected="all") {
+function lineGraph(state) {
   if (state === 'US TOTAL') {
 
 
-    d3.json(`/yieldline/${state}/${commodityselected}`).then(function (statedata) {
+    d3.json(`/yieldline/${state}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Year)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
       console.log(mylabels)
@@ -256,7 +256,7 @@ function lineGraph(state,commodityselected="all") {
       );
     });
   } else {
-    d3.json(`/yieldline/${state}${commodityselected}`).then(function (statedata) {
+    d3.json(`/yieldline/${state}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Year)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
       // console.log(mylabels)
