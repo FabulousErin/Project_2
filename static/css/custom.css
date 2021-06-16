@@ -19,13 +19,25 @@ p {
 
 
 #mapid {
-height:600px;
+height:400px;
 min-height: 100%;
-min-width: 100%;
+width: 800px;
 display: block;
 }
 
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center;
+}
+
+#ChartCol{
+  height:66%;
+}
+#lineGraph{
+  height:250px;
+  min-width: 200px;
+}
+#barChart{
+  height:250px;
+  min-width: 200px;
 }

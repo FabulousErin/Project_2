@@ -46,7 +46,7 @@ function init() {
 };
 window.addEventListener('DOMContentLoaded', init);
 
-var saved_state_output =""
+var saved_state_output = ""
 
 function OnClick(state_output) {
   saved_state_output = state_output
@@ -59,22 +59,22 @@ function OnClick(state_output) {
 
 function optChange(commodityselected) {
   // console.log(saved_state_output.target.feature.properties.NAME.toUpperCase());
-  lineGraph(saved_state_output.target.feature.properties.NAME.toUpperCase(),commodityselected)
+  lineGraph(saved_state_output.target.feature.properties.NAME.toUpperCase(), commodityselected)
 }
 
 
-function pieChart(state) {
+function pieChart(state, commodities) {
   if (state === 'US TOTAL') {
 
 
     d3.json(`/prdpie/${state}`).then(function (statedata) {
       var comLabel = statedata.map(sdata => sdata.Commodity)
-      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      var mydata = statedata.map(sdata => sdata.Value)
       // console.log(mylabels)
       // console.log(mydata)
       const data = {
 
-        labels: comLabel ,
+        labels: comLabel,
         datasets: [{
           label: `${state}`,
           data: mydata,
@@ -106,16 +106,18 @@ function pieChart(state) {
         document.getElementById('pieChart'),
         config
       );
+      lineGraph(state, comLabel)
     });
   } else {
     d3.json(`/prdpie/${state}`).then(function (statedata) {
       var comLabel = statedata.map(sdata => sdata.Commodity)
-      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      var mydata = statedata.map(sdata => sdata.Value)
       // console.log(mylabels)
       // console.log(mydata)
       var myChart = Chart.getChart(`pieChart`)
       // removeData(myChart)
       addData(myChart, comLabel, mydata, state)
+      lineGraph(state, comLabel)
     })
   }
 }
@@ -136,6 +138,14 @@ function addDataBar(chart, label, data, state) {
   // console.log(chart.data.datasets.data)
   chart.update();
 }
+function addDataLine(chart, datasets, state) {
+  // console.log(chart.data.datasets)
+  // chart.data.labels = label;
+  chart.options.plugins.title.text = `${state}'s Historical Crop Yields`;
+  chart.data.datasets = datasets;
+  // console.log(chart.data.datasets.data)
+  chart.update();
+}
 function removeData(chart) {
   // console.log(chart.data.labels)
   chart.data.labels = [];
@@ -146,7 +156,7 @@ function removeData(chart) {
 }
 pieChart('US TOTAL');
 barChart('US TOTAL');
-lineGraph('US TOTAL');
+// lineGraph('US TOTAL');
 
 function barChart(state) {
   if (state === 'US TOTAL') {
@@ -211,30 +221,32 @@ function barChart(state) {
     })
   }
 }
-function lineGraph(state) {
+function lineGraph(state, commodities) {
   if (state === 'US TOTAL') {
-
-
     d3.json(`/yieldline/${state}`).then(function (statedata) {
-      var mylabels = statedata.map(sdata => sdata.Year)
-      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
-      console.log(mylabels)
-      console.log(mydata)
-      const data = {
-
-        labels: mylabels,
-        datasets: [{
-          label: `${state}`,
-          data: mydata,
+      console.log(statedata)
+      var datasets = []
+      commodities.forEach(commodity => {
+        var commodityData = statedata.filter(row => row.Commodity === commodity)
+        var values = commodityData.map(row => row.Value);
+        var dataset = {
+          label: commodity,
+          data: values,
           backgroundColor: [
             'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(100, 205, 86)',
-            'rgb(255, 205, 255)',
           ],
           hoverOffset: 4
-        }]
+        }
+        datasets.push(dataset)
+      })
+      var mylabels = statedata.map(sdata => sdata.Year)
+      // var mydata = statedata.map(sdata => (sdata.Value.replaceAll(',', '')))
+      console.log(mylabels)
+      // console.log(mydata)
+      const data = {
+        labels: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+
+        datasets: datasets
       };
 
       const config = {
@@ -244,7 +256,7 @@ function lineGraph(state) {
           plugins: {
             title: {
               display: true,
-              text: `${state}'s Top 5 Crop Production by Value`
+              text: `${state}'s Top 5 Crops Yearly Yield`
             }
           }
         }
@@ -258,12 +270,39 @@ function lineGraph(state) {
   } else {
     d3.json(`/yieldline/${state}`).then(function (statedata) {
       var mylabels = statedata.map(sdata => sdata.Year)
-      var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
+      var datasets = []
+      commodities.forEach(commodity => {
+        var commodityData = statedata.filter(row => row.Commodity === commodity)
+        var values = commodityData.map(row => row.Value)
+        var dataset = {
+          label: commodity,
+          data: values,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+          ],
+          hoverOffset: 4
+        }
+        datasets.push(dataset)
+      })
       // console.log(mylabels)
       // console.log(mydata)
       var myChart = Chart.getChart(`lineGraph`)
       // removeData(myChart)
-      addData(myChart, mylabels, mydata, state)
+      addDataLine(myChart, datasets, state)
     })
   }
 }
+
+// labels: mylabels,
+        // datasets: [{
+        //   label: `${state}`,
+        //   data: mydata,
+        //   backgroundColor: [
+        //     'rgb(255, 99, 132)',
+        //     'rgb(54, 162, 235)',
+        //     'rgb(255, 205, 86)',
+        //     'rgb(100, 205, 86)',
+        //     'rgb(255, 205, 255)',
+        //   ],
+        //   hoverOffset: 4
+        // }]
