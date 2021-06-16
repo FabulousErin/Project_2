@@ -68,13 +68,13 @@ function pieChart(state) {
 
 
     d3.json(`/prdpie/${state}`).then(function (statedata) {
-      var mylabels = statedata.map(sdata => sdata.Commodity)
+      var comLabel = statedata.map(sdata => sdata.Commodity)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
       // console.log(mylabels)
       // console.log(mydata)
       const data = {
 
-        labels: mylabels,
+        labels: ,
         datasets: [{
           label: `${state}`,
           data: mydata,
@@ -109,13 +109,13 @@ function pieChart(state) {
     });
   } else {
     d3.json(`/prdpie/${state}`).then(function (statedata) {
-      var mylabels = statedata.map(sdata => sdata.Commodity)
+      var comLabel = statedata.map(sdata => sdata.Commodity)
       var mydata = statedata.map(sdata => parseInt(sdata.Value.replaceAll(',', '')))
       // console.log(mylabels)
       // console.log(mydata)
       var myChart = Chart.getChart(`pieChart`)
       // removeData(myChart)
-      addData(myChart, mylabels, mydata, state)
+      addData(myChart, comLabel, mydata, state)
     })
   }
 }
