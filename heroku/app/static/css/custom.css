@@ -1,0 +1,43 @@
+
+/**
+ * Padding for the body (to accomodate the fixed nav-bar).
+ */
+body {
+  padding-top: 5rem;
+  background-image: ("static/data/corn_image.jpg");
+}
+
+
+/**
+ * Responsive Text (apparently I'm on my own here)
+ * https://v4-alpha.getbootstrap.com/content/typography/#responsive-typography
+ */
+p {
+  font-size: 1.5 em;
+}
+
+
+
+#mapid {
+height:400px;
+min-height: 100%;
+width: 800px;
+display: block;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+#ChartCol{
+  height:66%;
+}
+#lineGraph{
+  height:250px;
+  min-width: 200px;
+}
+#barChart{
+  height:250px;
+  min-width: 200px;
+}

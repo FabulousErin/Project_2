@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% set active_page = "prices" %}
+
+{% block content %}
+<div class='bg'>
+
+
+    <p>This fabulous content was brought to you by Erin, Kali, Joel, and Onuwa.</p>
+
+   
+
+    <div>
+        <img src="static/data/Corn Price Based on Previous Day.png"> </img>
+        <img src="static/data/Corn Price Based on 5,10,20 Days.png"> </img>
+    </div>
+
+    <div>
+        <img src="static/data/Soybean Price Based on Previous Day.png"> </img>
+        <img src="static/data/Soybean Price Based on 5,10,20 Days.png"> </img>
+    </div>
+    <div>
+        <img src="static/data/Wheat Price Based on Previous Day.png"> </img>
+        <img src="static/data/Wheat Price Based on 5,10,20 Days.png"> </img>
+    </div>
+    <div>
+        <img src="static/data/Cotton Price Based on Previous Day.png"> </img>
+        <img src="static/data/Cotton Price Based on 5,10,20 Days.png"> </img>
+    </div>
+
+    <div>
+        <img src="static/data/Live Cattle Based on Previous Day.png"> </img>
+        <img src="static/data/Live Cattle Based on 5,10,20 Days.png"> </img>
+    </div>
+    <a href="https://github.com/FabulousErin/Project_2">Click here to check out our GitHub for this project
+        <style>
+
+         a:link, a:visited {
+            background-color: #8D8D8D;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+            background-color:#1A1A1A;
+        }</style></a>
+</div>
+
+<style>
+    div {
+        background-image: ('data/corn_image.jpg');
+        width: auto;
+        text-align: center;
+        padding: 20px;
+    }
+
+    img {
+        vertical-align: middle;
+        border-style: none;
+        /* height: 53%; */
+        width: 49%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .bg {
+        /* The image used */
+        background-image: url("static/data/corn_image.jpg");
+
+        /* Full height */
+        height: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    
+</style>
+{% endblock %}
