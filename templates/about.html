@@ -1,109 +1,22 @@
 {% extends "base.html" %}
 
-{% set active_page = "prices" %}
+{% set active_page = "about" %}
 
 {% block content %}
-<div class='bg'>
+
     <div class='container'>
 
-        <p>This fabulous content was brought to you by Erin, Kali, Joel, and Onuwa.</p>
+        <h4>This fabulous content was brought to you by Erin, Kali, Joel, and <a href="https://github.com/OnyNwosu" >Onuwa</a>.</h4>
     </div>
 
+<p align="center">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS_Gid5tfDDvXmCH57vGXARLzZrrJk0I5636J1JDAET2EuXGgJNLbt_X9nVDYlTSw/embed?start=false&loop=false&delayms=60000" frameborder="0" width="1920" height="1109" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</p>
+<div class='container'>
+    <a id="git_button" href="https://github.com/FabulousErin/Project_2">Click here to check out our GitHub for this
+        project
 
-    <div class='container'>
-        <img class="chart" src="static/data/Corn Price Based on Previous Day.png"> </img>
-        <img src="static/data/Corn Price Based on 5,10,20 Days.png"> </img>
-        <img src="static/data/Corn Price Up-Down Based on Previous Day Up-Down.png"></img>
-    </div>
-
-    <div class='container'>
-        <img src="static/data/Soybean Price Based on Previous Day.png"> </img>
-        <img src="static/data/Soybean Price Based on 5,10,20 Days.png"> </img>
-        <img src="static/data/Soybean Price Up-Down Based on Previous Day Up-Down.png"></img>
-    </div>
-
-    <div class='container'>
-        <img src="static/data/Wheat Price Based on Previous Day.png"> </img>
-        <img src="static/data/Wheat Price Based on 5,10,20 Days.png"> </img>
-        <img src="static/data/Wheat Price Up-Down Based on Previous Day Up-Down.png"></img>
-    </div class='container'>
-
-    <div class='container'>
-        <img src="static/data/Cotton Price Based on Previous Day.png"> </img>
-        <img src="static/data/Cotton Price Based on 5,10,20 Days.png"> </img>
-        <img src="static/data/Cotton Price Up-Down Based on Previous Day Up-Down.png"></img>
-    </div>
-
-    <div class='container'>
-        <img src="static/data/Live Cattle Based on Previous Day.png"> </img>
-        <img src="static/data/Live Cattle Based on 5,10,20 Days.png"> </img>
-        <img src="static/data/Live Cattle Up-Down Based on Previous Day Up-Down.png"></img>
-    </div>
-    <div class='container'>
-        <a id="git_button" href="https://github.com/FabulousErin/Project_2">Click here to check out our GitHub for this
-            project
-
-        </a>
-    </div>
+    </a>
 </div>
 
-<style>
-    a#git_button:link,
-    a#git_button:visited {
-        background-color: #8D8D8D;
-        color: white;
-        padding: 14px 25px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    a#git_button:hover,
-    a#git_button:active {
-        background-color: #1A1A1A;
-    }
-
-    div.container {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        background-color: rgba(255,255,255,0.5);
-    }
-
-    img.chart {
-        background-color: white;
-    }
-
-    div.bg {
-        /* position:fixed;
-        top:0; 
-        left:0; */
-        background-attachment: fixed;
-        background-image: ('data/corn_image.jpg');
-        width: auto;
-        text-align: center;
-        /* padding: 20px; */
-    }
-
-    img {
-        vertical-align: middle;
-        border-style: none;
-        /* height: 53%; */
-        width: 49%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .bg {
-        /* The image used */
-        background-image: url("static/data/corn_image.jpg");
-
-        /* Full height */
-        /*height: 100%;*/
-
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: repeat-y;
-        /*background-size: cover;*/
-    }
-</style>
 {% endblock %}
