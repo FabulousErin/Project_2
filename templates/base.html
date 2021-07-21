@@ -31,8 +31,11 @@
 
   {% set active_page = active_page|default('home') -%}
 
-  <body>
+  <body class='bg'>
     <style>
+      .custom-bg {
+        background-color: rgba(255,255,255,0.5);
+      }
       a#git_button:link,
       a#git_button:visited {
           background-color: #8D8D8D;
@@ -67,6 +70,10 @@
           width: auto;
           text-align: center;
           /* padding: 20px; */
+      }
+
+      .hide {
+        display: none
       }
   
       img {
