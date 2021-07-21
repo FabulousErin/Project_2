@@ -13,6 +13,8 @@ We will build on our Project 2 to add historical price data and predict future c
 
 # Visualization
 * Add a chart with drop down menu to display our price forecast with the ability to toggle through various commodities.
+
+
 ![](static/Images/Data_Visual.png) 
 
 
