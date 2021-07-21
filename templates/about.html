@@ -4,64 +4,84 @@
 
 {% block content %}
 <div class='bg'>
+    <div class='container'>
+
+        <p>This fabulous content was brought to you by Erin, Kali, Joel, and Onuwa.</p>
+    </div>
 
 
-    <p>This fabulous content was brought to you by Erin, Kali, Joel, and Onuwa.</p>
-
-   
-
-    <div>
-        <img src="static/data/Corn Price Based on Previous Day.png"> </img>
+    <div class='container'>
+        <img class="chart" src="static/data/Corn Price Based on Previous Day.png"> </img>
         <img src="static/data/Corn Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Corn Price Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
 
-    <div>
+    <div class='container'>
         <img src="static/data/Soybean Price Based on Previous Day.png"> </img>
         <img src="static/data/Soybean Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Soybean Price Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
 
-    <div>
+    <div class='container'>
         <img src="static/data/Wheat Price Based on Previous Day.png"> </img>
         <img src="static/data/Wheat Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Wheat Price Up-Down Based on Previous Day Up-Down.png"></img>
-    </div>
+    </div class='container'>
 
-    <div>
+    <div class='container'>
         <img src="static/data/Cotton Price Based on Previous Day.png"> </img>
         <img src="static/data/Cotton Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Cotton Price Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
 
-    <div>
+    <div class='container'>
         <img src="static/data/Live Cattle Based on Previous Day.png"> </img>
         <img src="static/data/Live Cattle Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Live Cattle Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
-    <a href="https://github.com/FabulousErin/Project_2">Click here to check out our GitHub for this project
-        <style>
+    <div class='container'>
+        <a id="git_button" href="https://github.com/FabulousErin/Project_2">Click here to check out our GitHub for this
+            project
 
-         a:link, a:visited {
-            background-color: #8D8D8D;
-            color: white;
-            padding: 14px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        a:hover, a:active {
-            background-color:#1A1A1A;
-        }</style></a>
+        </a>
+    </div>
 </div>
 
 <style>
-    div {
+    a#git_button:link,
+    a#git_button:visited {
+        background-color: #8D8D8D;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    a#git_button:hover,
+    a#git_button:active {
+        background-color: #1A1A1A;
+    }
+
+    div.container {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: rgba(255,255,255,0.5);
+    }
+
+    img.chart {
+        background-color: white;
+    }
+
+    div.bg {
+        /* position:fixed;
+        top:0; 
+        left:0; */
+        background-attachment: fixed;
         background-image: ('data/corn_image.jpg');
         width: auto;
         text-align: center;
-        padding: 20px;
+        /* padding: 20px; */
     }
 
     img {
@@ -83,9 +103,7 @@
         /* Center and scale the image nicely */
         background-position: center;
         background-repeat: repeat-y;
-        /*background-size: cover;?
+        /*background-size: cover;*/
     }
-
-    
 </style>
 {% endblock %}
