@@ -5,41 +5,103 @@
 {% block content %}
 <div class='bg'>
     <div class='container'>
-
+        <h1> Charts</h1>
+        <p>All about these charts</p>
     </div>
 
+    <select id="showChart"class="style12 active">
+        <option selected="selected">Corn</option>
+        <option>Soybeans</option>
+        <option>Wheat</option>
+        <option>Live Cattle</option>
+        <option>Cotton</option>
+    </select>
 
-    <div class='container'>
+    
+
+
+    <div class='container chart-container active' id='corn'>
+     
         <img class="chart" src="static/data/Corn Price Based on Previous Day.png"> </img>
         <img src="static/data/Corn Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Corn Price Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
 
-    <div class='container'>
+    <div class='container chart-container hide' id='soybean'>
         <img src="static/data/Soybean Price Based on Previous Day.png"> </img>
         <img src="static/data/Soybean Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Soybean Price Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
 
-    <div class='container'>
+    <div class='container chart-container hide' id='wheat'>
         <img src="static/data/Wheat Price Based on Previous Day.png"> </img>
         <img src="static/data/Wheat Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Wheat Price Up-Down Based on Previous Day Up-Down.png"></img>
-    </div class='container'>
+    </div >
 
-    <div class='container'>
+    <div class='container chart-container hide' id='cotton'>
         <img src="static/data/Cotton Price Based on Previous Day.png"> </img>
         <img src="static/data/Cotton Price Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Cotton Price Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
 
-    <div class='container'>
+    <div class='container chart-container hide' id='cattle'>
         <img src="static/data/Live Cattle Based on Previous Day.png"> </img>
         <img src="static/data/Live Cattle Based on 5,10,20 Days.png"> </img>
         <img src="static/data/Live Cattle Up-Down Based on Previous Day Up-Down.png"></img>
     </div>
  
 </div>
+
+<script>
+
+
+var el = document.getElementById('showChart');
+
+
+el.addEventListener("change", function() {
+    var text = el.options[el.selectedIndex].innerHTML;
+    console.log('Text of dropdown!!!', text)
+
+    const charts = document.getElementsByClassName('chart-container');
+    console.log('all the charts!!', charts)
+
+    for (let i = 0; i < charts.length; i++) {
+        if(charts[i].classList.contains("active")) {
+            charts[i].classList.remove("active")
+            charts[i].classList.add("hide")
+        }
+    }
+    console.log('about to hit the if!! this is our text', text)
+
+    if(text ==='Soybeans') {
+        console.log('We hit the if!!')
+        document.getElementById('soybean').classList.remove('hide')
+        document.getElementById('soybean').classList.add('active')
+    } else if(text ==='Wheat') {
+        console.log('We hit the if!!')
+        document.getElementById('wheat').classList.remove('hide')
+        document.getElementById('wheat').classList.add('active')
+    } else if(text ==='Live Cattle') {
+        console.log('We hit the if!!')
+        document.getElementById('cattle').classList.remove('hide')
+        document.getElementById('cattle').classList.add('active')
+    }  else if(text ==='Cotton') {
+        console.log('We hit the if!!')
+        document.getElementById('cotton').classList.remove('hide')
+        document.getElementById('cotton').classList.add('active')
+    } else if(text ==='Corn') {
+        console.log('We hit the if!!')
+        document.getElementById('corn').classList.remove('hide')
+        document.getElementById('corn').classList.add('active')
+    } 
+
+
+});
+
+
+
+</script>
 
 
 {% endblock %}
