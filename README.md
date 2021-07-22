@@ -9,12 +9,13 @@ We will build on our Project 2 to add historical price data and predict future c
 # Analysis
 * Use machine learning to forecast crop prices
 * Predict future crop area and yield
-* https://data-flair.training/blogs/stock-price-prediction-machine-learning-project-in-python/
+* LSTM Model we didn't use : https://data-flair.training/blogs/stock-price-prediction-machine-learning-project-in-python/
+* An example of linear regression model : https://dev.to/nitdgplug/stonksmaster-predict-stock-prices-using-python-ml-3hmc
 
 # Visualization
 * Add a chart with drop down menu to display our price forecast with the ability to toggle through various commodities.
 
 
-![](static/Images/Data_Visual.png) 
+![](static/Images/Grain_Prices.png) 
 
 
